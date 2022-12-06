@@ -5,6 +5,13 @@ import { Navbar, Register, Activities, Routines } from "./";
 const Main = () => {
 
   const [user, setUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
+  
+  const userLogin = async () => {
+    const user = await getUserInfo(localStorage.getItem("token"));
+    setUserLoggedIn(user);
+    SetLogin(true);
+  };
 
 
 
