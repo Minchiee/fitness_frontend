@@ -1,10 +1,16 @@
 import React from "react";
-import { Navbar } from "./";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Navbar, Register, Activities, Routines } from "./";
 
 const Main = () => {
+
+  const [user, setUser] = useState(null);
+
+
+
   return (
     <div id="main">
-      <Navbar />
+      <BrowserRouter>
     </div>
   );
 };
