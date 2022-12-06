@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar, Register, Activities, Routines } from "./";
 
@@ -10,7 +10,7 @@ const Main = () => {
 
   return (
     <div id="main">
-      <BrowserRouter>
+      
     </div>
   );
 };
