@@ -3,7 +3,7 @@ const BASE = "https://fitnesstrac-kr.herokuapp.com/api";
 
 export async function getRoutines() {
     try {
-        const response = await fetch (`${BASE}/rouitines`, {
+        const response = await fetch (`${BASE}/routines`, {
             headers: {
                 "Content-Type": "application/json",
             },

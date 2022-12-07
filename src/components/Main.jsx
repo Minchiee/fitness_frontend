@@ -8,13 +8,16 @@ import {
   Activities,
   Routines,
   Home,
+  CreateRoutine
 } from "./";
-import { getActivities } from "../api";
+import { getActivities, addRoutine } from "../api";
 
 const Main = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [activities, setActivities] = useState([]);
+  const [routine, setRoutine] = useState([]);
+
   const getLoggedInUser = async () => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -28,12 +31,22 @@ const Main = () => {
       getLoggedInUser();
     }
   }, []);
+
   useEffect(() => {
     async function fetchActivities() {
       const allActivities = await getActivities();
       setActivities(allActivities);
     }
     fetchActivities();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const createRoutines = await addRoutine();
+      console.log(createRoutines)
+      setRoutine(createRoutines);
+    }
+    fetchData();
   }, []);
 
   return (
@@ -71,6 +84,7 @@ const Main = () => {
           }
         />
         <Route path="/" element={<Home />} />
+        <Route path="/create-routines" element={<CreateRoutine setRoutine={setRoutine}/>} />
       </Routes>
       </BrowserRouter>
     </div>
