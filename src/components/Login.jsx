@@ -8,7 +8,7 @@ const Login = (props) => {
     async function handleSubmit(event) {
         event.preventDefault();
         const username = event.target[0].value;
-        const password = event.targer[1].value;
+        const password = event.target[1].value;
         const loggedInUser = await loginUser(username, password);
         const token = loggedInUser.token;
         props.setLogin(true);
