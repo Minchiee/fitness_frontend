@@ -1,5 +1,3 @@
-import { json } from "react-router-dom";
-import { ActivityRoutine } from "../components"
 
 const BASE = "https://fitnesstrac-kr.herokuapp.com/api";
 
