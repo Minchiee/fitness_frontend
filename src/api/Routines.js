@@ -1,65 +1,34 @@
-const BASE = "https://fitnesstrac-kr.herokuapp.com/api";
+const BASE = 'https://fitnesstrac-kr.herokuapp.com/api'
 
-
-export async function loginUser({ username, password }) {
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: username,
-      password: password,
-    }),
-  };
-  try {
-    const response = await fetch(BASE + "/users/login", options);
-    const result = await response.json();
-
-    if (result.error) {
-      return result;
-    } else {
-      const token = result.token;
-      localStorage.removeItem("token");
-      localStorage.setItem("token", token);
-      return result.user;
+function isLogged(param) {
+    const localToken = localStorage.getItem("token")
+    if (localToken){
+        param.headers["Authorization"] = "Bearer" + localToken
     }
-  } catch (error) {
-    console.error(error);
-  }
 }
 
-export async function registerUser({ username, password }) {
+export async function getUserRoutines({username, id}) {
     const options = {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
+        }
+    }
+
+    if (id){
+        isLogged(id)
     }
 
     try {
-        const response = await fetch(BASE + '/users/register', options)
+        const response = await fetch(BASE + `/users/${username}/routines`, options)
         const result = await response.json()
-
-        if (result.error) {
-            return result
-        } else {
-            const token = result.token
-            localStorage.removeItem("token")
-            localStorage.setItem("token", token)
-            return result.user
-        }
+        return result
     } catch (error) {
         console.error(error)
     }
 }
 
-
-export async function getCurrentUser() {
+export async function getPublicRoutines() {
     const options = {
         method: 'GET',
         headers: {
@@ -68,11 +37,70 @@ export async function getCurrentUser() {
     }
 
     try {
-        const local = localStorage.getItem("token")
-        if (local){
-            options.headers["Authorization"] = "Bearer" + local;
+        const response = await fetch(BASE + '/routines', options)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function postRoutine({ name, goal, isPublic }) {
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: name,
+            goal: goal,
+            isPublic: (isPublic || null)
+        })
+    }
+    isLogged(options)
+
+    try {
+        const response = await fetch(BASE + '/routines', options)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function deleteRoutine({ id }) {
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
         }
-        const response = await fetch(BASE + '/users/me', options)
+    }
+
+    try {
+        const response = await fetch(BASE + `/routines/${id}`, options)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function updateRoutine({ id, name, goal, isPublic }) {
+    const options = {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: name,
+            goal: goal,
+            isPublic: isPublic
+        })
+    }
+    isLogged(options)
+
+    try {
+        const response = await fetch(BASE + `/routines/${id}`, options)
         const result = await response.json()
         return result
     } catch (error) {
