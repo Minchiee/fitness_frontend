@@ -8,6 +8,9 @@ const Navbar = (props) => {
       <NavLink id="navLogin" to="Login">
         Login
       </NavLink>
+      <NavLink id="navRegister" to="Register">
+        Register
+      </NavLink>
       <NavLink id="navRoutines" to="Routines">
         Routines
       </NavLink>
