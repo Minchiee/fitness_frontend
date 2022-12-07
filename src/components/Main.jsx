@@ -1,25 +1,72 @@
 import React, { useState, useEffect} from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Navbar, Register, Activities, Routines } from "./";
+import { Navbar, Register, Login, MyRoutines, Activities, Routines, Home } from "./";
+import { getActivities } from "../api";
 
 const Main = () => {
 
-  const [user, setUser] = useState(null);
-  const [isLogin, setIsLogin] = useState(false);
-  
-  const userLogin = async () => {
-    const user = await getUserInfo(localStorage.getItem("token"));
-    setUserLoggedIn(user);
-    SetLogin(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+  const [activities, setActivities] = useState([]);
+  const getLoggedInUser = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoggedIn(true);
+    }
   };
 
-
-
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      getLoggedInUser();
+    }
+  }, []);
+  useEffect(()=> {
+    async function fetchActivities() {
+      const allActivities = await getActivities();
+      setActivities(allActivities);
+    }
+    fetchActivities();
+  }, []);
+  
   return (
-    <div id="main">
-      
-    </div>
+   <div id="main">
+    <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+    <Routes>
+      <Route
+      path="login"
+      element= {
+        <Login
+        getLoggedInUser={getLoggedInUser}
+        username={username}
+        setUsername={setUsername}
+        setLoggedIn={setLoggedIn}
+        />
+      }
+      />
+<Route path="login/register" element={<Register />} />
+<Route
+path="activities"
+element={
+  <Activities activities={activities} setActivities={setActivities} />
+}
+/>
+<Route path="routines" element={<Routines />} />
+<Route 
+path="/me"
+element={
+  <MyRoutines 
+  username={username} 
+  activities={activities} 
+  setActivities={setActivities}
+  />
+}
+/>
+<Route path="/" element={<Home />} />
+    </Routes>
+   </div>
   );
+  
 };
 
 export default Main;
