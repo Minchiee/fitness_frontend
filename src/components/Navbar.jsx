@@ -27,6 +27,12 @@ const Navbar = (props) => {
           Log Out
         </button>
       ) : null}
+      <NavLink id="navCreateActivities" to="create-activities">
+        Create your own activities!
+      </NavLink>
+      <NavLink id="navCreateRoutines" to="create-routines">
+        Create your own routines!
+      </NavLink>
     </div>
   );
 };

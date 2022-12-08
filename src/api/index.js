@@ -1,6 +1,13 @@
 
 const BASE = "https://fitnesstrac-kr.herokuapp.com/api";
 
+function attachToken(auth){
+    const token = localStorage.getItem("token")
+    if (token){
+        auth.headers["Authorization"] = "Bearer" + token;
+    }
+}
+
 export async function getRoutines() {
     try {
         const response = await fetch (`${BASE}/routines`, {
@@ -41,6 +48,24 @@ export async function getActivityRoutines() {
         return result;
     } catch (error) {
         throw error;
+    }
+}
+
+export async function getUser() {
+    const options = {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    try {
+        attachToken(options);
+        const response = await fetch (`${BASE}/users/me`, options)
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -93,13 +118,13 @@ export async function getMyRoutine(username, token) {
     }
 }
 
-export async function addRoutine(token, name, goal, isPublic) {
+export async function addRoutine({token, name, goal, isPublic}) {
     try {
         const options = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify({
                 name,

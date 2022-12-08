@@ -1,8 +1,42 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { getMyRoutine } from "../api/index"
 
-function MyRoutines() {
+function MyRoutines(props) {
+  const user = props.user;
+  const [routineList, setRoutineList] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      async function fetchData() {
+        const userRoutine = await getMyRoutine(user);
+        setRoutineList(userRoutine);
+      }
+      fetchData();
+    }
+  }, []);
+
+
   return (
-    <div>MyRoutines</div>
+    <div>
+      {routineList && routineList.length
+      ? routineList.map((routineInfo) => {
+        return (
+          <>
+          <div id="singleRoutine">
+            <p>Name: {routineInfo.name}</p>
+            <p>Goal: {routineInfo.goal}</p>
+            <p>isPublic: {routineInfo.isPublic}</p>
+          </div>
+          </>
+        )
+      })
+    : null}
+    {routineList.length ?
+    <CreateRoutine 
+    routineList={routineList}
+    user={user}/>
+  : null}
+    </div>
   )
 }
 
