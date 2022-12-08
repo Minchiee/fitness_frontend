@@ -31,11 +31,6 @@ function MyRoutines(props) {
         )
       })
     : null}
-    {routineList.length ?
-    <CreateRoutine 
-    routineList={routineList}
-    user={user}/>
-  : null}
     </div>
   )
 }
