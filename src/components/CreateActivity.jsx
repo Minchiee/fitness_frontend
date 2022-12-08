@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { makeActivity } from "../api/index"
+import React, { useState } from "react";
+import { makeActivity } from "../api/index";
 
 function CreateActivity() {
   const [name, setName] = useState("");
@@ -9,7 +9,7 @@ function CreateActivity() {
     event.preventDefault();
     const newActivity = await makeActivity({
       name: name,
-      description: description
+      description: description,
     });
     return newActivity;
   }
@@ -22,19 +22,30 @@ function CreateActivity() {
     setDescription(event.target.value);
   }
 
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form id='CreateActivity'onSubmit={handleSubmit}>
         <h3>Make an Activity</h3>
-        <label htmlFor='name'> Name: </label>
-        <input type='text' name='name' value={name} onChange={handleNameChange} required/>
-        <label htmlFor='description'>Description: </label>
-        <input type='text' name='description' value={description} onChange={handleDescChange} require />
+        <label htmlFor="name"> Name: </label>
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleNameChange}
+          required
+        />
+        <label htmlFor="description">Description: </label>
+        <input
+          type="text"
+          name="description"
+          value={description}
+          onChange={handleDescChange}
+          require
+        />
         <button type="submit">Create Activity</button>
       </form>
     </div>
-  )
+  );
 }
 
-export default CreateActivity
+export default CreateActivity;

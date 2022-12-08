@@ -53,3 +53,80 @@ body {
   color: #bbb;
   cursor: pointer;
 }
+
+/*Create Routine Stylings*/
+
+body {
+  background-color: #F5F5DC;
+  color: #8B4513;
+}
+
+#CreateRoutine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+#CreateRoutine label {
+  margin-bottom: 10px;
+}
+
+#CreateRoutine input[type="text"],
+#CreateRoutine select {
+  width: 250px;
+  height: 30px;
+  border: 1px solid #8B4513;
+  border-radius: 5px;
+  padding: 0 10px;
+  font-size: 16px;
+  color: #8B4513;
+  background-color: #F5F5DC;
+}
+
+#CreateRoutine button[type="submit"] {
+  margin-top: 10px;
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #F5F5DC;
+  background-color: #8B4513;
+}
+
+/*Create Activity Styling*/
+
+#CreateActivity form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+#CreateActivity label {
+  margin-bottom: 10px;
+}
+
+#CreateActivity input[type="text"],
+#CreateActivity textarea {
+  width: 250px;
+  height: 30px;
+  border: 1px solid #8B4513;
+  border-radius: 5px;
+  padding: 0 10px;
+  font-size: 16px;
+  color: #8B4513;
+  background-color: #F5F5DC;
+}
+
+#CreateActivity button[type="submit"] {
+  margin-top: 10px;
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #F5F5DC;
+  background-color: #8B4513;
+}
